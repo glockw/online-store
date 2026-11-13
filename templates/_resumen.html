@@ -1,0 +1,12 @@
+<aside class="panel resumen">
+  <h3>Resumen</h3>
+  <dl>
+    <dt>Subtotal</dt><dd>{{ totales.subtotal|dinero }}</dd>
+    <dt>IVU (11.5%)</dt><dd>{{ totales.impuestos|dinero }}</dd>
+    <dt>Envío</dt><dd>{% if totales.envio == 0 %}<span class="gratis">Gratis</span>{% else %}{{ totales.envio|dinero }}{% endif %}</dd>
+    <dt class="total">Total</dt><dd class="total">{{ totales.total|dinero }}</dd>
+  </dl>
+  {% if totales.falta_envio_gratis > 0 %}
+    <p class="nota">Agrega {{ totales.falta_envio_gratis|dinero }} más para envío gratis.</p>
+  {% endif %}
+</aside>

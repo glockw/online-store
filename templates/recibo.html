@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block titulo %}Recibo {{ orden.numero }}{% endblock %}
+{% block contenido %}
+<div class="panel recibo">
+  <div class="recibo-cab">
+    <div>
+      <h2>Recibo de compra</h2>
+      <p class="nota">Orden <strong>{{ orden.numero }}</strong> · {{ orden.fecha }}</p>
+    </div>
+    <span class="sello">PAGADO</span>
+  </div>
+  <p>Cliente: <strong>{{ orden.usuario }}</strong> · Tarjeta {{ orden.tarjeta }}</p>
+  <table class="tabla">
+    <thead><tr><th>Producto</th><th>Cant.</th><th>Precio</th><th class="der">Total</th></tr></thead>
+    <tbody>
+      {% for l in orden.lineas %}<tr><td>{{ l.nombre }}</td><td>{{ l.cantidad }}</td><td>{{ l.precio|dinero }}</td><td class="der">{{ l.total|dinero }}</td></tr>{% endfor %}
+    </tbody>
+    <tfoot>
+      <tr><td colspan="3">Subtotal</td><td class="der">{{ orden.subtotal|dinero }}</td></tr>
+      <tr><td colspan="3">IVU (11.5%)</td><td class="der">{{ orden.impuestos|dinero }}</td></tr>
+      <tr><td colspan="3">Envío</td><td class="der">{{ orden.envio|dinero }}</td></tr>
+      <tr class="total"><td colspan="3">Total pagado</td><td class="der">{{ orden.total|dinero }}</td></tr>
+    </tfoot>
+  </table>
+  <div class="acciones no-imprimir">
+    <button class="btn btn-sec" onclick="window.print()">Imprimir</button>
+    <a href="{{ url_for('catalogo') }}" class="btn">Volver al catálogo</a>
+  </div>
+</div>
+{% endblock %}

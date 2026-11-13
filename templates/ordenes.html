@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block titulo %}Mis órdenes{% endblock %}
+{% block contenido %}
+<h1>Mis órdenes</h1>
+{% if not ordenes %}
+  <div class="vacio">Aún no tienes órdenes. <a href="{{ url_for('catalogo') }}">Explora el catálogo</a></div>
+{% else %}
+<div class="panel">
+  <table class="tabla">
+    <thead><tr><th>Orden</th><th>Fecha</th><th>Artículos</th><th class="der">Total</th><th></th></tr></thead>
+    <tbody>
+    {% for o in ordenes %}
+      <tr><td>{{ o.numero }}</td><td>{{ o.fecha }}</td><td>{{ o.lineas|sum(attribute='cantidad') }}</td>
+          <td class="der">{{ o.total|dinero }}</td><td><a href="{{ url_for('recibo', numero=o.numero) }}">Ver recibo</a></td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endif %}
+{% endblock %}

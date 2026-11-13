@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block titulo %}Tienda{% endblock %} · InLine Orders</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header class="barra">
+  <div class="contenedor barra-int">
+    <a class="marca" href="{{ url_for('catalogo') }}">🛍️ InLine<span>Orders</span></a>
+    <nav>
+      <a href="{{ url_for('catalogo') }}">Catálogo</a>
+      <a href="{{ url_for('ver_carrito') }}" class="carrito-link">Carrito{% if items_carrito %} <b class="burbuja">{{ items_carrito }}</b>{% endif %}</a>
+      {% if usuario %}
+        <a href="{{ url_for('ordenes') }}">Mis órdenes</a>
+        {% if usuario.admin %}<a href="{{ url_for('admin') }}">Admin</a>{% endif %}
+        <form method="post" action="{{ url_for('logout') }}" class="en-linea">
+          <button class="enlace" title="Cerrar sesión">Salir ({{ usuario.usuario }})</button>
+        </form>
+      {% else %}
+        <a href="{{ url_for('login') }}" class="btn btn-sm">Iniciar sesión</a>
+      {% endif %}
+    </nav>
+  </div>
+</header>
+
+<main class="contenedor">
+  {% with mensajes = get_flashed_messages(with_categories=true) %}
+    {% for cat, msg in mensajes %}<div class="alerta alerta-{{ cat }}">{{ msg }}</div>{% endfor %}
+  {% endwith %}
+  {% block contenido %}{% endblock %}
+</main>
+
+<footer class="pie contenedor">
+  <span>Datos en memoria · catálogo cargado desde <code>data/catalogo.json</code></span>
+  <a href="{{ url_for('flujos_pdf') }}" target="_blank">📄 Diagramas de flujo (PDF)</a>
+</footer>
+</body>
+</html>

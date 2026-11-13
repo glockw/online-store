@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block titulo %}Registro{% endblock %}
+{% block contenido %}
+<div class="panel estrecho">
+  <h2>Crear cuenta</h2>
+  <form method="post" class="formulario">
+    <input type="hidden" name="next" value="{{ next }}">
+    <label>Usuario <input name="usuario" required minlength="3" value="{{ request.form.usuario }}"></label>
+    <label>Nombre completo <input name="nombre" value="{{ request.form.nombre }}"></label>
+    <label>Contraseña <input type="password" name="clave" required minlength="6"></label>
+    <label>Confirmar contraseña <input type="password" name="confirmar" required></label>
+    <button class="btn btn-grande">Registrarme</button>
+  </form>
+  <p>¿Ya tienes cuenta? <a href="{{ url_for('login', next=next) }}">Inicia sesión</a></p>
+</div>
+{% endblock %}

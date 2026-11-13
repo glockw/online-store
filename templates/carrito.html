@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block titulo %}Carrito{% endblock %}
+{% block contenido %}
+<h1>Tu carrito</h1>
+{% if not lineas %}
+  <div class="vacio">Tu carrito está vacío. <a href="{{ url_for('catalogo') }}">Ir al catálogo</a></div>
+{% else %}
+<div class="dos-col">
+  <div class="panel">
+    <table class="tabla">
+      <thead><tr><th>Producto</th><th>Precio</th><th>Cantidad</th><th class="der">Total</th><th></th></tr></thead>
+      <tbody>
+      {% for l in lineas %}
+        <tr>
+          <td>{{ l.producto.emoji }} {{ l.producto.nombre }}<br><small class="nota">Disponibles: {{ l.producto.stock }}</small></td>
+          <td>{{ l.producto.precio|dinero }}</td>
+          <td>
+            <form method="post" action="{{ url_for('actualizar') }}" class="en-linea">
+              <input type="hidden" name="pid" value="{{ l.producto.id }}">
+              <input type="number" name="cantidad" value="{{ l.cantidad }}" min="0" class="corto">
+              <button class="btn btn-sm btn-sec">Actualizar</button>
+            </form>
+          </td>
+          <td class="der">{{ l.total|dinero }}</td>
+          <td>
+            <form method="post" action="{{ url_for('eliminar') }}">
+              <input type="hidden" name="pid" value="{{ l.producto.id }}">
+              <button class="icono" title="Eliminar">✕</button>
+            </form>
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    <form method="post" action="{{ url_for('vaciar') }}"><button class="enlace peligro">Vaciar carrito</button></form>
+  </div>
+  {% include "_resumen.html" %}
+</div>
+<div class="acciones">
+  <a href="{{ url_for('catalogo') }}" class="btn btn-sec">Seguir comprando</a>
+  <a href="{{ url_for('checkout') }}" class="btn">Ir a pagar</a>
+</div>
+{% endif %}
+{% endblock %}

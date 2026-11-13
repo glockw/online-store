@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block titulo %}Pago{% endblock %}
+{% block contenido %}
+<h1>Finalizar compra</h1>
+<div class="dos-col">
+  <div class="panel">
+    <h3>Datos de pago</h3>
+    <p class="nota">Pasarela simulada — no se almacena el número de tarjeta.</p>
+    <form method="post" action="{{ url_for('pagar') }}" class="formulario">
+      <label>Nombre del titular <input name="titular" required value="{{ usuario.nombre }}"></label>
+      <label>Número de tarjeta <input name="numero" required inputmode="numeric" placeholder="4242 4242 4242 4242" autocomplete="off"></label>
+      <div class="fila">
+        <label>Vencimiento <input name="vencimiento" required placeholder="MM/AA"></label>
+        <label>CVV <input name="cvv" required inputmode="numeric" maxlength="4" placeholder="123" autocomplete="off"></label>
+      </div>
+      <button class="btn btn-grande">Pagar {{ totales.total|dinero }}</button>
+    </form>
+    <details class="nota">
+      <summary>Tarjetas de prueba</summary>
+      <ul>
+        <li><code>4242 4242 4242 4242</code> → aprobada</li>
+        <li><code>4000 0000 0000 0002</code> → rechazada</li>
+        <li>Cualquier fecha futura y CVV de 3 dígitos.</li>
+      </ul>
+    </details>
+  </div>
+  <div>
+    <div class="panel">
+      <h3>Productos</h3>
+      <ul class="lista-simple">
+        {% for l in lineas %}<li><span>{{ l.cantidad }} × {{ l.producto.nombre }}</span><span>{{ l.total|dinero }}</span></li>{% endfor %}
+      </ul>
+      <a href="{{ url_for('ver_carrito') }}" class="enlace">Editar carrito</a>
+    </div>
+    {% include "_resumen.html" %}
+  </div>
+</div>
+{% endblock %}

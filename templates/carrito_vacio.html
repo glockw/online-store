@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block titulo %}Carrito vacío{% endblock %}
+{% block contenido %}
+<div class="panel centrado">
+  <div class="emoji grande">🛒</div>
+  <h2>Carrito vacío</h2>
+  <p>No hay productos para procesar. El proceso de compra terminó.</p>
+  <a href="{{ url_for('catalogo') }}" class="btn">Volver al catálogo</a>
+</div>
+{% endblock %}

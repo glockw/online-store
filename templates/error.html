@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block titulo %}Error {{ codigo }}{% endblock %}
+{% block contenido %}
+<div class="panel centrado">
+  <h2>Error {{ codigo }}</h2>
+  <p>{{ mensaje }}</p>
+  <a href="{{ url_for('catalogo') }}" class="btn">Volver al catálogo</a>
+</div>
+{% endblock %}

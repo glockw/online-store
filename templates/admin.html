@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block titulo %}Administración{% endblock %}
+{% block contenido %}
+<h1>Administración</h1>
+<div class="panel">
+  <h3>Inventario</h3>
+  <table class="tabla">
+    <thead><tr><th>ID</th><th>Producto</th><th>Precio</th><th>Stock</th><th>Reponer</th></tr></thead>
+    <tbody>
+    {% for p in productos %}
+      <tr {% if p.stock == 0 %}class="fila-agotada"{% endif %}>
+        <td>{{ p.id }}</td><td>{{ p.emoji }} {{ p.nombre }}</td><td>{{ p.precio|dinero }}</td><td>{{ p.stock }}</td>
+        <td>
+          <form method="post" class="en-linea">
+            <input type="hidden" name="pid" value="{{ p.id }}">
+            <input type="number" name="cantidad" value="5" min="1" class="corto">
+            <button class="btn btn-sm">+ Stock</button>
+          </form>
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+<div class="panel">
+  <h3>Órdenes recientes ({{ ordenes|length }})</h3>
+  {% if ordenes %}
+  <ul class="lista-simple">
+    {% for o in ordenes %}<li><a href="{{ url_for('recibo', numero=o.numero) }}">{{ o.numero }}</a><span>{{ o.usuario }} · {{ o.fecha }}</span><span>{{ o.total|dinero }}</span></li>{% endfor %}
+  </ul>
+  {% else %}<p class="nota">Sin órdenes todavía.</p>{% endif %}
+</div>
+{% endblock %}

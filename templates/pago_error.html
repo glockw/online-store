@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block titulo %}Error de pago{% endblock %}
+{% block contenido %}
+<div class="panel centrado">
+  <div class="emoji grande">⚠️</div>
+  <h2>Error en el pago</h2>
+  <p class="alerta alerta-error">{{ mensaje }}</p>
+  <p>No se realizó ningún cargo por {{ totales.total|dinero }}. Tu carrito se conservó.</p>
+  <div class="acciones">
+    <a href="{{ url_for('checkout') }}" class="btn">Intentar de nuevo</a>
+    <a href="{{ url_for('catalogo') }}" class="btn btn-sec">Volver al catálogo</a>
+  </div>
+</div>
+{% endblock %}

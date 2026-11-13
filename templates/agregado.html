@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block titulo %}Agregado{% endblock %}
+{% block contenido %}
+<div class="panel centrado">
+  <div class="emoji grande">{{ producto.emoji }}</div>
+  <h2>✓ Agregado al carrito</h2>
+  <p>{{ cantidad }} × <strong>{{ producto.nombre }}</strong></p>
+  <p class="pregunta">¿Deseas seguir comprando?</p>
+  <div class="acciones">
+    <a href="{{ url_for('catalogo') }}" class="btn btn-sec">Sí, seguir comprando</a>
+    <a href="{{ url_for('checkout') }}" class="btn">No, ir a pagar</a>
+  </div>
+  <a href="{{ url_for('ver_carrito') }}" class="enlace">Ver carrito</a>
+</div>
+{% endblock %}

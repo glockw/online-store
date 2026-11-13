@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block titulo %}Catálogo{% endblock %}
+{% block contenido %}
+<section class="encabezado">
+  <h1>Catálogo de productos</h1>
+  <form class="filtros" method="get">
+    <input type="search" name="q" value="{{ q }}" placeholder="Buscar productos…">
+    <select name="cat" onchange="this.form.submit()">
+      <option value="">Todas las categorías</option>
+      {% for c in categorias %}<option value="{{ c }}" {% if c == cat %}selected{% endif %}>{{ c }}</option>{% endfor %}
+    </select>
+    <button class="btn btn-sec">Buscar</button>
+    {% if q or cat %}<a href="{{ url_for('catalogo') }}" class="enlace">Limpiar</a>{% endif %}
+  </form>
+</section>
+
+{% if not productos %}
+  <div class="vacio">No se encontraron productos con esos criterios.</div>
+{% endif %}
+
+<div class="grid">
+  {% for p in productos %}
+  {% set disponible = p.stock - en_carrito.get(p.id, 0) %}
+  <article class="tarjeta">
+    <div class="emoji">{{ p.emoji }}</div>
+    <span class="chip">{{ p.categoria }}</span>
+    <h3>{{ p.nombre }}</h3>
+    <p class="desc">{{ p.descripcion }}</p>
+    <div class="precio-fila">
+      <span class="precio">{{ p.precio|dinero }}</span>
+      {% if p.stock == 0 %}<span class="stock agotado">Agotado</span>
+      {% elif p.stock <= 3 %}<span class="stock bajo">¡Quedan {{ p.stock }}!</span>
+      {% else %}<span class="stock">Stock: {{ p.stock }}</span>{% endif %}
+    </div>
+    <form method="post" action="{{ url_for('agregar') }}" class="agregar">
+      <input type="hidden" name="pid" value="{{ p.id }}">
+      <input type="number" name="cantidad" value="1" min="1" aria-label="Cantidad" {% if p.stock == 0 %}disabled{% endif %}>
+      <button class="btn" {% if p.stock == 0 %}disabled{% endif %}>Agregar</button>
+    </form>
+    {% if en_carrito.get(p.id) %}<small class="nota">En tu carrito: {{ en_carrito[p.id] }}</small>{% endif %}
+  </article>
+  {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,12 @@
+[
+  {"id": "P001", "nombre": "Café de Puerto Rico 1 lb", "descripcion": "Café tostado medio, cultivado en la montaña.", "precio": 14.99, "stock": 25, "categoria": "Alimentos", "emoji": "☕"},
+  {"id": "P002", "nombre": "Taza de cerámica", "descripcion": "Taza artesanal de 12 oz, apta para microondas.", "precio": 9.50, "stock": 12, "categoria": "Hogar", "emoji": "🍵"},
+  {"id": "P003", "nombre": "Audífonos inalámbricos", "descripcion": "Bluetooth 5.3, 30 horas de batería.", "precio": 59.99, "stock": 6, "categoria": "Electrónica", "emoji": "🎧"},
+  {"id": "P004", "nombre": "Cargador USB-C 30W", "descripcion": "Carga rápida compatible con teléfonos y tabletas.", "precio": 19.99, "stock": 15, "categoria": "Electrónica", "emoji": "🔌"},
+  {"id": "P005", "nombre": "Libreta de notas", "descripcion": "Tapa dura, 200 páginas punteadas.", "precio": 7.25, "stock": 30, "categoria": "Oficina", "emoji": "📓"},
+  {"id": "P006", "nombre": "Bolígrafos (paquete de 5)", "descripcion": "Tinta gel negra, punta fina 0.5 mm.", "precio": 4.99, "stock": 40, "categoria": "Oficina", "emoji": "🖊️"},
+  {"id": "P007", "nombre": "Mochila urbana", "descripcion": "Compartimento acolchado para laptop de 15\".", "precio": 45.00, "stock": 4, "categoria": "Accesorios", "emoji": "🎒"},
+  {"id": "P008", "nombre": "Botella térmica", "descripcion": "Acero inoxidable, mantiene frío 24 h.", "precio": 22.00, "stock": 10, "categoria": "Accesorios", "emoji": "🧴"},
+  {"id": "P009", "nombre": "Planta suculenta", "descripcion": "Incluye maceta de barro de 4\".", "precio": 12.00, "stock": 8, "categoria": "Hogar", "emoji": "🪴"},
+  {"id": "P010", "nombre": "Edición limitada: reloj", "descripcion": "Últimas unidades disponibles.", "precio": 129.00, "stock": 1, "categoria": "Accesorios", "emoji": "⌚"}
+]
